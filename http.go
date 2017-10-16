@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"strings"
+	"fmt"
 )
 
 var handler http.Handler
@@ -53,6 +54,10 @@ func parseBody(r *http.Response, output interface{}) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		panic(err)
+	}
+
+	if ShowResponse {
+		fmt.Printf("%s\n", body)
 	}
 
 	err = json.Unmarshal(body, output)
